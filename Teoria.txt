@@ -1,0 +1,50 @@
+NODE EXPRES:
+Node.js es un entorno en tiempo de ejecución multiplataforma, de código abierto, para la capa del servidor basado en el lenguaje de programación JavaScript, asíncrono, con E/S de datos en una arquitectura orientada
+ a eventos y basado en el motor V8 de Google.
+
+Archivo yml: ejecuta tareas automatizada cada vez que actualizamos proyecto en git
+npm install -g npm@version --> instalacion global
+Las dependencias se instalan de forma local
+
+
+Crear repositorio git
+Clonarlo de forma local: git clone 
+crear proyecto node (package.json con info y dependencias del proyecto): npm init
+
+mongoose: ORM que se usara para crear los modelos de datos y mapear en en mongo db
+
+scripts: comandos a ejecutar con nombre cllave(ejecuta valor entre comilla )
+npm run nombreScript
+Ej : "start": "node index.js" --> npm start
+"start:local": "npx nodemon index.js" --> nox ejecutar cinb las librerias intaladas a nivel local (Ejecuta nodemon a nivel local)
+
+
+
+
+Dependencias de Express
+npm i --save-dev : instalacion local orientados al desarrollo
+npm express dotenv
+npm i -D nodemon: para que la app se actualice constantemente 
+npm i -D typescript @types/express @types/node --> Instalar tsc para trasnpilar (Codigo typescript a js)
+Express: 
+Dotenv: archivo en el proyecto que permite buscar archivos .env (informacion de variables de entorno) que no se sube  en git
+
+PLUGIN DE VSCODE:
+ version lens:Verifica las ultiams versiones de dependencias
+babel javascript
+Better coments: documentar codigo js
+EditorConfig for VSCode
+ES7 +React
+Material icon theme: visualizacion de carpetas
+npm de microsoft para que encuentren rapidamente dependencia d eproyecto
+Test Explorer UI: test
+TODO highligth: listar tareas pendiente
+todo tree
+ESLint: para obligar usar reglas de sintaxis formateadas
+Crear instancia de express node: const aplicacion=express()
+
+.ENV:
+port=8000
+(const port =process.env.PORT)
+
+IMPORTANTE: DEFINIR LAS RUTAS 
