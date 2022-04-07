@@ -1,7 +1,7 @@
 /* eslint-disable quotes */
 import { BasicResponse } from "./types";
 import { IHelloController } from "./interfaces";
-import { LogSucess } from "@/utils/logger";
+import { LogSucess } from "../utils/logger";
 
 export class HelloController implements IHelloController {
 
@@ -10,7 +10,7 @@ export class HelloController implements IHelloController {
         LogSucess('[/api/hello] Get Request');
 
         return {
-            message: `Hello ${name || "world"}`;
+            message: `Hello ${name || "world"}`
         }
     }
 

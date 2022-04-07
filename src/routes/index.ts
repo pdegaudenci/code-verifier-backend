@@ -1,7 +1,7 @@
-import express, { Request, response } from 'express'
+import express, { Request, Response } from 'express'
 import helloRouter from './HelloRouter'
-import { LogInfo } from '@/utils/logger'
-import { HelloController } from '@/controller/HelloController';
+import { LogInfo } from '../utils/logger'
+import { HelloController } from '../controller/HelloController';
 
 // Server instance
 let server = express();
