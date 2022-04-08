@@ -1,4 +1,4 @@
-import { userEntity, userEntity } from '../entities/User.entity'
+import { userEntity } from '../entities/User.entity'
 import { LogSucess, LogError } from '@/utils/logger'
 
 // Preticiones CRUD
