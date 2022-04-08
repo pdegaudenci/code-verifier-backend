@@ -19,6 +19,10 @@ const port: string | number = process.env.PORT || 8000 // variable 8000 debe est
 // Definir la direccion de entrada del SERVER "/api" y ejecute rootRouter del index.ts de carpeta routes
 app.use('/api', routes) // http:// localhost:8000/api/....
 
+// static server
+app.use(express.static('/public'));
+
+
 // TODO Mongoose connection
 
 // Security config

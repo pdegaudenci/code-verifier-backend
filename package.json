@@ -4,12 +4,12 @@
   "description": "NODE + EXPRESS + TS + SWAGGER",
   "main": "index.js",
   "scripts": {
-    "build": "npx tsc",
-    "start": "node dist/index.js",
     "dev": "concurrently \"npx tsc --watch\" \" \"nodemon -q dist/index.js\" ",
     "test": "jest",
-    "start:local": "npx nodemon index.js",
-    "serve:coverage": "npm run test && cd coverage/lcov-report &&  npx serve"
+    "serve:coverage": "npm run test && cd coverage/lcov-report &&  npx serve",
+    "build": "npx webpack --mode development",
+    "start": "node dist/index.js",
+    "build:prod": "npx webpack --mode production"
   },
   "repository": {
     "type": "git",
@@ -31,7 +31,9 @@
     "cors": "^2.8.5",
     "dotenv": "^16.0.0",
     "express": "^4.17.3",
-    "helmet": "^5.0.2"
+    "helmet": "^5.0.2",
+    "mongoose": "^6.2.10",
+    "tsoa": "^3.14.1"
   },
   "devDependencies": {
     "@types/cors": "^2.8.12",
@@ -51,6 +53,7 @@
     "serve": "^13.0.2",
     "supertest": "^6.2.2",
     "ts-jest": "^27.1.4",
+    "ts-loader": "^9.2.8",
     "ts-node": "^10.7.0",
     "typescript": "^4.6.3",
     "webpack": "^5.71.0",
