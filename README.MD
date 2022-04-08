@@ -1,9 +1,10 @@
 ## Dependencias:
   #Dependencias globales:
-    * Express: framwork para back end de node.js
+    * Express: framework para back end de node.js
     * dotenv: permite leer las variables de entorno del archivo .env que se encuentra en la raiz
 
   #Dependencias de desarrollo: 
+
     * nodemon: permite recargar la página cada vez que detecta un cambio en el editor sin necesidad de inicializar continuamente el proyecto. 
     * typescript @types/express @types/node : libreria necesarias para transpilacion, es decir, convertir codigo de typescript en javascript de forma automatica y trasnparente. Tambien se instalan dos librerias para que TypeScript  reconozca los tipos de las clases de Express.
     * concurrently : permite  combinar diferentes comandos de script en un único script y luego ejecutarlo en la línea de comandos
@@ -12,6 +13,11 @@
     *  jest ts-jest @types/jest supertest  : librerias de testing unitario que permite escribir y ejecutar tests
     * ts-node: Par apoder TypeScript directamente en Node sin necesidad de transpilar.
     * serve : Permite servir a nivel web los informes de cobertura para su visualizacion grafica
+    * cors:  mecanismo que permite que se puedan solicitar recursos restringidos  en una página web desde un dominio diferente del dominio que sirvió el primer recurso (CORS: intercambio de recursos de origen cruzado o Cross-origin resource sharing)
+    * helmet: permite proteger a la aplicación de algunas vulnerabilidades web conocidas mediante el establecimiento correcto de cabeceras HTTP.
+    * @types/cors: permite usar el paquete de cors en typescript, importando sus tipos.
+
+
 
 ## Scripts utilizados (package.json)--> Se ejecutan con npm run nombreScript :
     * "build": "npx tsc" : ejecutar el paquete instalado localmente tsc -> transpilar el codigo en index.js a un fichero javascript index.js en la carpeta dist

@@ -1,0 +1,70 @@
+{
+	"info": {
+		"_postman_id": "1e42de59-be69-4562-8518-db6db5ae8d61",
+		"name": "NODEJS + EXPRESS",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "hello",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8000/hello",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"hello"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Hello con name en query params",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8000/api/hello?name=Pedr",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"hello"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "Pedr"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Goodbye sin query name",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "Goodbye con query name",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		}
+	]
+}
