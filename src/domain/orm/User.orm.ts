@@ -10,7 +10,7 @@ export const getAllUsers = async (): Promise<any[] | undefined> => {
     try {
         const userModel = userEntity()
 
-        return await userModel.find({ isDelete: false })
+        return await userModel.find({ isDelete: false }) // busca aquellos que no estan borrados
     } catch (error) {
         LogError(`[ORM ERROR]: GET All User: ${error}`)
     }
