@@ -4,7 +4,9 @@
     * dotenv: permite leer las variables de entorno del archivo .env que se encuentra en la raiz
     * cors:  mecanismo que permite que se puedan solicitar recursos restringidos  en una página web desde un dominio diferente del dominio que sirvió el primer recurso (CORS: intercambio de recursos de origen cruzado o Cross-origin resource sharing)
     * helmet: permite proteger a la aplicación de algunas vulnerabilidades web conocidas mediante el establecimiento correcto de cabeceras HTTP.
-    
+    * swagger-jsdoc y swagger-ui-express: dependencias para poder generar de forma automatica la documentacion usando el formato yaml y ademas permite generar una interfaz con la documentación del proyecto.
+    * tsoa: permite documentar el codigo a traves de etiquetas , las cuales son usadas por swagger para generar la documentacion.
+    * mongoose: dependencia ODM (Object Model Mapper ) de node.js que permite definir objetos con esquemas fuertemente tipados y poder persistirlos en una base de datos mongo.
 
   #Dependencias de desarrollo: 
 

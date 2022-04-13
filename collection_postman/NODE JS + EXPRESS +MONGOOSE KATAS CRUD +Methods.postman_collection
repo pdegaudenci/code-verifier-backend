@@ -1,0 +1,240 @@
+{
+	"info": {
+		"_postman_id": "34fd7508-634c-47e3-8726-74a31cc83537",
+		"name": "NODE JS + EXPRESS +MONGOOSE KATAS",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "GET ALL KATAS",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8000/api/katas",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"katas"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST CREATE KATA",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8000/api/katas?name=kata inicial&description=Este es el primer kata de prueba&level=1&userName=Pedro&chances=1&valoration=3&valorationQuantity=1&average=3&userEmail=prueba@prueba.com&userAge=18",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"katas"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "kata inicial"
+						},
+						{
+							"key": "description",
+							"value": "Este es el primer kata de prueba"
+						},
+						{
+							"key": "level",
+							"value": "1"
+						},
+						{
+							"key": "userName",
+							"value": "Pedro"
+						},
+						{
+							"key": "chances",
+							"value": "1"
+						},
+						{
+							"key": "valoration",
+							"value": "3"
+						},
+						{
+							"key": "valorationQuantity",
+							"value": "1"
+						},
+						{
+							"key": "average",
+							"value": "3"
+						},
+						{
+							"key": "userEmail",
+							"value": "prueba@prueba.com"
+						},
+						{
+							"key": "userAge",
+							"value": "18"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE KATA BY ID",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "UPDATE KATA BY ID",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8000/api/katas",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"katas"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET KATAS BY LEVEL",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8000/api/katas/level?level=3",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"katas",
+						"level"
+					],
+					"query": [
+						{
+							"key": "level",
+							"value": "3"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET FIVE MOST RECENT KATAS",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8000/api/katas/recent",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"katas",
+						"recent"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET KATAS ORDERED BY CHANCES (DESC)",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8000/api/katas/ordered",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"katas",
+						"ordered"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PUT SCORE KATA",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8000/api/katas/score?id=6256b0166f580c3fbd5304d5&score=10",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"katas",
+						"score"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "6256b0166f580c3fbd5304d5"
+						},
+						{
+							"key": "score",
+							"value": "10"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET KATAS ORDERED BY SCORE",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8000/api/katas/score",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"katas",
+						"score"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

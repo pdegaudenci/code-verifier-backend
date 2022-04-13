@@ -1,3 +1,4 @@
+/* eslint-disable indent */
 import { userEntity } from '../entities/User.entity'
 import { LogSucess, LogError } from '../../utils/logger'
 
@@ -9,7 +10,7 @@ import { LogSucess, LogError } from '../../utils/logger'
 export const getAllUsers = async (): Promise<any[] | undefined> => {
     try {
         const userModel = userEntity()
-
+        LogSucess('[API/USERS] Get All Users')
         return await userModel.find({ isDelete: false }) // busca aquellos que no estan borrados
     } catch (error) {
         LogError(`[ORM ERROR]: GET All User: ${error}`)

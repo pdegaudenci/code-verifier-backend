@@ -1,3 +1,4 @@
+/* eslint-disable indent */
 import { Get, Route, Tags, Query, Delete, Post, Put } from 'tsoa'
 import { IUsersController } from './interfaces/index'
 import { LogSucess, LogError, LogWarning } from '../../src/utils/logger'

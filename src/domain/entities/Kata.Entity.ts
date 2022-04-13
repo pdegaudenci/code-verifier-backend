@@ -1,17 +1,23 @@
+/* eslint-disable indent */
 import mongoose from 'mongoose'
-import { userEntity } from './User.entity'
 
 export const kataEntity = () => {
     const userSchema = new mongoose.Schema({
-        Name: String,
+        name: String,
+        Chances: Number,
+        Date: Date,
         Description: String,
         Level: Number,
-        User: userEntity,
-        Date: Date,
-        Valoration: Number,
-        Chances: Number
+        User: {
+            name: String,
+            email: String,
+            age: Number
+        },
+        Valorations: Number,
+        Average: Number,
+        ValorationQuantity: Number
 
     })
 
-    return mongoose.model('Katas', userSchema)
+    return mongoose.models.katas || mongoose.model('katas', userSchema)
 }

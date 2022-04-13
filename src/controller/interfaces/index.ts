@@ -19,3 +19,26 @@ export interface IUsersController {
     updateUser(id: string, user: any): Promise<any>
 
 }
+
+export interface IKatasInterface {
+    // Obtiene todos las katas || obtiene kata por ID
+    getKatas(id?: string): Promise<any>
+    // Borra kata por ID
+    deleteKata(id?: string): Promise<any>
+    // Crear nuevo kata
+    createKata(kata: any): Promise<any>
+    // Actualizar kata
+    updateKata(id: string, kata: any): Promise<any>
+    // obtoner katas por nivel de dificultad
+    getKataByLevel(level: Number): Promise<any>
+    // obtener las 5 Katas más recientes
+    getFiveMostRecent(): Promise<any>
+    // Valorar kata y almacena la media
+    scoreKata(id: string, score: Number): Promise<any>
+    // Katas ordenadas por intentos 
+    getKataOrderedByChances(): Promise<any>
+    //Katas ordenados por valoraciones (medias)
+    getKatasOrderedByScore(): Promise<any>
+
+
+}

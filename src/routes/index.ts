@@ -4,6 +4,7 @@ import helloRouter from './HelloRouter'
 import { LogInfo } from '../utils/logger'
 import GoodByeRouter from '../routes/GoodByeRouter'
 import userRouter from './UserRouter'
+import kataRouter from './KataRouter'
 
 
 // Server instance
@@ -25,6 +26,7 @@ server.use('/', rootRouter)
 server.use('/hello', helloRouter) // http://localhost:8000/api/hello --> gestionadas por helloRouter
 server.use('/goodbye', GoodByeRouter)
 server.use('/users', userRouter)// http://localhost:8000/api/users --> gestionadas por UserRputer
+server.use('/katas', kataRouter)
 
 
 export default server
