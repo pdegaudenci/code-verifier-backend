@@ -1,6 +1,12 @@
 /* eslint-disable indent */
 import { userEntity } from '../entities/User.entity'
+import { IUser } from '../IUser.interface'
 import { LogSucess, LogError } from '../../utils/logger'
+import { IAuth } from '../IAuth.interface'
+// Cifrado de contraseñas
+import bcrypt from 'bcrypt'
+// Generacion de JWToken
+import jwt from 'jsonwebtoken'
 
 // Preticiones CRUD
 
@@ -38,7 +44,7 @@ export const deleteUserById = async (id: String): Promise<any | undefined> => {
         LogError('[ORM error] Deleting user by id')
     }
 }
-// Create USeer
+// Crear Usuario
 export const createUser = async (user: any): Promise<any | undefined> => {
     try {
         const userModel = userEntity()
@@ -61,4 +67,53 @@ export const updateUser = async (id: string, user: any): Promise<any | undefined
     }
 }
 
-// GetUserByEmail
+// Registro de usuario
+export const registerUser = async (user: IUser): Promise<any | undefined> => {
+    try {
+        const userModel = userEntity()
+        // Crea usuario
+        return await userModel.create(user)
+    } catch (error) {
+        LogError('[ORM error] creating user')
+    }
+}
+
+// Login
+export const loginUser = async (auth: IAuth): Promise<any | undefined> => {
+    try {
+        const userModel = userEntity()
+        // Buscar usuario por email
+        const user = await userModel.findOne({ email: auth.email }, (err: any, user: IUser) => {
+            // En caso de que se encuentro un usuario con el email proporcioando
+            if (err) {
+                // TODO retorna error 500
+            }
+            if (!user) {
+                // TODO retornar error 404 (usuario no encontrado)
+            }
+
+            // Usar BCrypt para comparar contraseña recibida en auth y la almacenada en base de datos
+            const validPassword = bcrypt.compareSync(auth.password, user.password)
+
+            // Si password no es valido -->Error 401 (No autorizado)
+            if (!validPassword) {
+
+            }
+
+            // Crear JWT 
+            // TODO Definir decret KEy en .env
+            let token = jwt.sign({ email: user.email }, 'SECRET', {
+                expiresIn: "2h",
+            })
+
+            return token;
+        })
+    } catch (error) {
+        LogError('[ORM error] creating user')
+    }
+}
+
+// Login
+export const logoutUser = async (): Promise<any | undefined> => {
+    // TODO Implementar
+}

@@ -48,12 +48,16 @@ export class UserController implements IUsersController {
             LogSucess('[api/users] Delete User By id')
             await deleteUserById(id).then((r) => {
                 response = {
+                    status: 204,
                     message: `User by id ${id} deleted succesfully`
                 }
             })
         } else {
             LogWarning('[api/users] Delete user Request without ID')
-            response = { message: 'Debe proporcionar un id de usuario' }
+            response = {
+                status: 400,
+                message: 'Debe proporcionar un id de usuario'
+            }
         }
 
         return response
@@ -78,12 +82,17 @@ export class UserController implements IUsersController {
             LogSucess('[api/users] Update User By id')
             await updateUser(id, user).then((r) => {
                 response = {
+                    status: 204,
                     message: `User with id ${id} updated succesfully`
+
                 }
             })
         } else {
             LogWarning('[api/users] Updating user Request without ID')
-            response = { message: 'Debe proporcionar un id de usuario' }
+            response = {
+                status: 400,
+                message: 'Debe proporcionar un id de usuario'
+            }
         }
 
         return response

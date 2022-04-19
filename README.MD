@@ -8,6 +8,11 @@
     * tsoa: permite documentar el codigo a traves de etiquetas , las cuales son usadas por swagger para generar la documentacion.
     * mongoose: dependencia ODM (Object Model Mapper ) de node.js que permite definir objetos con esquemas fuertemente tipados y poder persistirlos en una base de datos mongo.
 
+    * bcrypt: cifrar contenido
+    * bcryptjs
+    * jsonwebtoken
+
+
   #Dependencias de desarrollo: 
 
     * nodemon: permite recargar la página cada vez que detecta un cambio en el editor sin necesidad de inicializar continuamente el proyecto. 
@@ -19,6 +24,9 @@
     * ts-node: Par apoder TypeScript directamente en Node sin necesidad de transpilar.
     * serve : Permite servir a nivel web los informes de cobertura para su visualizacion grafica
     * @types/cors: permite usar el paquete de cors en typescript, importando sus tipos.
+    * @types/bcrypt    
+    * @types/jsonwebtoken
+    * @types/bcryptjs    
 
 
 ## Scripts utilizados (package.json)--> Se ejecutan con npm run nombreScript :

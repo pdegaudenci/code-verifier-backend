@@ -1,4 +1,5 @@
-import express, { Express, Response, Request } from 'express'
+import express, { Express, Response, Request, } from 'express'
+
 
 // Swagger
 
@@ -14,6 +15,7 @@ import helmet from 'helmet'
 
 import routes from '../routes'
 import mongoose from 'mongoose'
+import bodyParser from 'body-parser'
 
 // Crear Express APP
 const server: Express = express() // Devuelve instancia de express

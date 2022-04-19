@@ -1,4 +1,5 @@
 import { BasicResponse, OutputResponse } from '../types'
+import { IUser } from '../../domain/IUser.interface'
 
 export interface IHelloController {
     getMessage(name?: string): Promise<BasicResponse>
@@ -40,5 +41,15 @@ export interface IKatasInterface {
     //Katas ordenados por valoraciones (medias)
     getKatasOrderedByScore(): Promise<any>
 
+
+}
+
+export interface IAuthController {
+    // Registrar usuario
+    registerUser(user: IUser): Promise<any>
+    // Login de usuario
+    loginUser(auth: any): Promise<any>
+    // logout
+    logOutUser(): Promise<any>
 
 }

@@ -5,9 +5,10 @@ import mongoose from 'mongoose'
 export const userEntity = () => {
     // En el esquema no introduzco id, porque mongodb lo crea 
     const userSchema = new mongoose.Schema({
-        name: String,
-        email: String,
-        age: Number
+        name: { type: String, required: true },
+        email: { type: String, required: true },
+        password: { type: String, required: true },
+        age: { type: Number, required: true }
     })
 
     // retorna modelo asignado a la collecion users que cumplen el esquema si es la primera vez que se ejecuta o retorno el modelo existente
