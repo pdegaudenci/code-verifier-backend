@@ -5,14 +5,17 @@ import { IUser } from '.././domain/IUser.interface'
 // Algoritmo de cifrado BCRYPT
 import bcrypt from 'bcrypt'
 import { IAuth } from '../domain/IAuth.interface'
-
+// Leer JSON Body de las request
+import bodyParser from 'body-parser'
 const authRouter = express.Router()
+
+let jsonParser = bodyParser.json()
 
 // http://localhost:8000/api/auth/register
 authRouter.route('/register')
-    .post(async (req: Request, res: Response) => {
+    .post(jsonParser, async (req: Request, res: Response) => {
         // Obtener datos de usuario del body de la Request con desustructuracion del objeto JSON
-        console.log(req.body)
+
         const { name, email, password, age } = req.body
 
         if (name && email && password && age) {

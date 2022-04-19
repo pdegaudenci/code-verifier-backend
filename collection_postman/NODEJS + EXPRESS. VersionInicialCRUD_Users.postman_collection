@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "1e42de59-be69-4562-8518-db6db5ae8d61",
+		"_postman_id": "13cf9719-49a2-4944-ac76-c2d6f5552c00",
 		"name": "NODEJS + EXPRESS",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -54,7 +54,10 @@
 			"name": "Goodbye sin query name",
 			"request": {
 				"method": "GET",
-				"header": []
+				"header": [],
+				"url": {
+					"raw": ""
+				}
 			},
 			"response": []
 		},
@@ -62,7 +65,10 @@
 			"name": "Goodbye con query name",
 			"request": {
 				"method": "GET",
-				"header": []
+				"header": [],
+				"url": {
+					"raw": ""
+				}
 			},
 			"response": []
 		},
@@ -205,6 +211,36 @@
 							"key": "id",
 							"value": "625077d7701dbe1455ef9a83"
 						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "REGISTER USER",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Martin\",\r\n    \"email\": \"martin@gmail.com\",\r\n    \"password\": \"password\",\r\n    \"age\":25\r\n\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/api/auth/register",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"auth",
+						"register"
 					]
 				}
 			},

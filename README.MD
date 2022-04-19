@@ -7,6 +7,8 @@
     * swagger-jsdoc y swagger-ui-express: dependencias para poder generar de forma automatica la documentacion usando el formato yaml y ademas permite generar una interfaz con la documentación del proyecto.
     * tsoa: permite documentar el codigo a traves de etiquetas , las cuales son usadas por swagger para generar la documentacion.
     * mongoose: dependencia ODM (Object Model Mapper ) de node.js que permite definir objetos con esquemas fuertemente tipados y poder persistirlos en una base de datos mongo.
+    * body-parser:  Leer Body en formato JSON de las Request
+
 
     * bcrypt: cifrar contenido
     * bcryptjs
@@ -26,7 +28,8 @@
     * @types/cors: permite usar el paquete de cors en typescript, importando sus tipos.
     * @types/bcrypt    
     * @types/jsonwebtoken
-    * @types/bcryptjs    
+    * @types/bcryptjs   
+    * @types/body-parser 
 
 
 ## Scripts utilizados (package.json)--> Se ejecutan con npm run nombreScript :
