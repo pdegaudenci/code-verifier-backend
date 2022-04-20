@@ -26,9 +26,9 @@ rootRouter.get('/', (req: Request, res: Response) => {
 server.use('/', rootRouter)
 server.use('/hello', helloRouter) // http://localhost:8000/api/hello --> gestionadas por helloRouter
 server.use('/goodbye', GoodByeRouter)
-server.use('/users', userRouter)// http://localhost:8000/api/users --> gestionadas por UserRputer
-server.use('/katas', kataRouter)
-server.use('/auth', authRouter)
+server.use('/users', userRouter)// http://localhost:8000/api/users --> gestionadas por UserRouter
+server.use('/katas', kataRouter)// http://localhost:8000/api/katas --> gestionadas por KataRouter
+server.use('/auth', authRouter) // http://localhost:8000/api/auth --> gestionadas por authRouter
 
 
 export default server

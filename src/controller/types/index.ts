@@ -16,6 +16,14 @@ export type ErrorResponse = {
 }
 
 /**
+ * Auth JSON Response for controller
+ */
+export type AuthResponse = {
+    message: string,
+    token: String
+}
+
+/**
  * Output JSON Response for controller
  */
 export type OutputResponse = {

@@ -7,7 +7,14 @@ import { IAuth } from '../IAuth.interface'
 import bcrypt from 'bcrypt'
 // Generacion de JWToken
 import jwt from 'jsonwebtoken'
+// USo de variables de entorno
+import dotenv from 'dotenv'
 
+// Acceso a .env
+dotenv.config()
+
+// Obtener secret key
+let secretKey = process.env.SECRET_KEY || 'MY SECRET KEY';
 // Preticiones CRUD
 
 /**
@@ -80,35 +87,70 @@ export const registerUser = async (user: IUser): Promise<any | undefined> => {
 
 // Login
 export const loginUser = async (auth: IAuth): Promise<any | undefined> => {
+
+
     try {
         const userModel = userEntity()
+        let userFound: IUser | undefined = undefined;
+        let token = undefined;
+
         // Buscar usuario por email
-        const user = await userModel.findOne({ email: auth.email }, (err: any, user: IUser) => {
-            // En caso de que se encuentro un usuario con el email proporcioando
-            if (err) {
-                // TODO retorna error 500
-            }
-            if (!user) {
-                // TODO retornar error 404 (usuario no encontrado)
-            }
+        await userModel.findOne({ email: auth.email }).then((user: IUser) => {
+            userFound = user
+        }).catch((error) => {
 
-            // Usar BCrypt para comparar contraseña recibida en auth y la almacenada en base de datos
-            const validPassword = bcrypt.compareSync(auth.password, user.password)
+            console.log('[ERROR Autentication in ORM]: User not found');
+            throw new Error(`[ERROR Autentication in ORM]: User not found: ${error}`);
 
-            // Si password no es valido -->Error 401 (No autorizado)
-            if (!validPassword) {
-
-            }
-
-            // Crear JWT 
-            // TODO Definir decret KEy en .env
-            let token = jwt.sign({ email: user.email }, 'SECRET', {
-                expiresIn: "2h",
-            })
-
-            return token;
         })
-    } catch (error) {
+
+        // Usar BCrypt para comparar contraseña recibida en auth y la almacenada en base de datos
+        const validPassword = bcrypt.compareSync(auth.password, userFound!.password);
+
+        if (!validPassword) {
+            console.log('[ERROR Autentication in ORM]: User not found')
+            throw new Error(`[ERROR Autentication in ORM]: User not found:`)
+        }
+
+        //GENERAR JSON TOKEN
+        token = jwt.sign({ email: userFound!.email }, secretKey, {
+            expiresIn: "2h",
+        })
+
+        return {
+            user: userFound,
+            token: token
+        }
+
+        /*
+            const user = await userModel.findOne({ email: auth.email }, (err: any, user: IUser) => {
+                // En caso de que se encuentro un usuario con el email proporcioando
+                if (err) {
+                    // TODO retorna error 500
+                }
+                if (!user) {
+                    // TODO retornar error 404 (usuario no encontrado)
+                }
+    
+                // Usar BCrypt para comparar contraseña recibida en auth y la almacenada en base de datos
+                const validPassword = bcrypt.compareSync(auth.password, user.password)
+    
+                // Si password no es valido -->Error 401 (No autorizado)
+                if (!validPassword) {
+    
+                }
+    
+                // Crear JWT 
+                // TODO Definir decret KEy en .env
+                let token = jwt.sign({ email: user.email }, 'SECRET', {
+                    expiresIn: "2h",
+                })
+    
+                return token;
+            })*/
+    }
+
+    catch (error) {
         LogError('[ORM error] creating user')
     }
 }

@@ -4,12 +4,15 @@ import express, { Request, Response } from 'express'
 import { KatasController } from '../controller/KatasController'
 import { LogInfo } from '../utils/logger'
 
+// Middleware para verificar token y proteger rutas
+import { verifyToken } from '../middleware/verifyToken.middleware'
+
 // Router de Express
 
 const kataRouter = express.Router() // Acceder al sistema de enrutado
-// http://localhost:8000/api/users
+// http://localhost:8000/katas
 kataRouter.route('/')
-    .get(async (req: Request, res: Response) => {
+    .get(verifyToken, async (req: Request, res: Response) => {
         // Obtener query Param (consultas que son recibidas por parametro en la URL)
         const id: any = req?.query?.id
         LogInfo(`Query Param : ${id}`)
@@ -26,7 +29,7 @@ kataRouter.route('/')
         return res.send(response)
     })
     // DELETE:
-    .delete(async (req: Request, res: Response) => {
+    .delete(verifyToken, async (req: Request, res: Response) => {
         const id: any = req?.query?.id
         LogInfo(`Query Param : ${id}`)
 
@@ -41,7 +44,7 @@ kataRouter.route('/')
         return res.send(response)
     })
     // Crear usuario
-    .post(async (req: Request, res: Response) => {
+    .post(verifyToken, async (req: Request, res: Response) => {
         const name: any = req?.query?.name
         const description: any = req?.query?.description
         const level: any = req?.query?.level
@@ -80,7 +83,7 @@ kataRouter.route('/')
         return res.send(response)
     })
     // Actualizar usuario por ID
-    .put(async (req: Request, res: Response) => {
+    .put(verifyToken, async (req: Request, res: Response) => {
         const id: any = req?.query.id
         const name: any = req?.query?.name
         const description: any = req?.query?.description
@@ -121,7 +124,7 @@ kataRouter.route('/')
     })
 
 kataRouter.route('/level')
-    .get(async (req: Request, res: Response) => {
+    .get(verifyToken, async (req: Request, res: Response) => {
         // Obtener query Param (consultas que son recibidas por parametro en la URL)
         const level: any = req?.query?.level
 
@@ -152,7 +155,7 @@ kataRouter.route('/recent')
     })
 
 kataRouter.route('/ordered')
-    .get(async (req: Request, res: Response) => {
+    .get(verifyToken, async (req: Request, res: Response) => {
         // Instancia de controlador
         const controller: KatasController = new KatasController()
 
@@ -165,7 +168,7 @@ kataRouter.route('/ordered')
     })
 kataRouter.route('/score')
     // Listar  Katas ordenadas de mejor valoradas a menos valoradas (en funcion de su average o media de puntuaciones)
-    .get(async (req: Request, res: Response) => {
+    .get(verifyToken, async (req: Request, res: Response) => {
         // Instancia de controlador
         const controller: KatasController = new KatasController()
 
@@ -176,7 +179,7 @@ kataRouter.route('/score')
 
         return res.send(response)
     })
-    .put(async (req: Request, res: Response) => {
+    .put(verifyToken, async (req: Request, res: Response) => {
         const id: any = req?.query?.id
         const score: any = req?.query.score
         // Instancia de controlador

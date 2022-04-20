@@ -19,9 +19,18 @@ export class UserController implements IUsersController {
         if (id) {
             LogSucess('[api/users] Get user By id')
             response = await getUserById(id)
+            response.password = ''
         } else {
             LogSucess('[api/users] Get all Users Request')
-            response = await getAllUsers()
+            response = await getAllUsers();
+            /*
+            response = response.map((x: any) => {
+                x = {
+                    ...x,
+                    password: ''
+                }
+            }
+            )*/
         }
 
         return response
@@ -63,17 +72,7 @@ export class UserController implements IUsersController {
         return response
     }
 
-    @Post('/')
-    public async createUser(user: any): Promise<any> {
-        let response: any = ''
-        LogSucess('[api/users] Creating user')
-        await createUser(user).then((r) => {
-            response = {
-                message: `Created user ${user.name} successfully`
-            }
-        })
-        return response
-    }
+
 
     @Put('/')
     public async updateUser(id: string, user: any): Promise<any> {
@@ -98,3 +97,18 @@ export class UserController implements IUsersController {
         return response
     }
 }
+
+/**
+ * SUSTITUIDO POR METODO REGISTERUSER DE AUTHCONTROLLER
+ *     @Post('/')
+    public async createUser(user: any): Promise<any> {
+        let response: any = ''
+        LogSucess('[api/users] Creating user')
+        await createUser(user).then((r) => {
+            response = {
+                message: `Created user ${user.name} successfully`
+            }
+        })
+        return response
+    }
+ */

@@ -1,6 +1,10 @@
 import jwt from 'jsonwebtoken'
 import { Request, Response, NextFunction } from 'Express'
+import dotenv from 'dotenv'
 
+// Leer variables de entorno del archivo .env
+dotenv.config();
+let sercretKey = process.env.SECRET_KEY || 'MYSECRETKEY'
 /**
  * 
  * @param req Peticion original del cliente que ingresa al middleware para la validaciond del token
@@ -11,15 +15,15 @@ import { Request, Response, NextFunction } from 'Express'
 export const verifyToken = (req: Request, res: Response, next: NextFunction) => {
     // Verifica Cabecera de la peticion del cliente (Propiedad: xs-access-token)
     const token: any = req.headers['xs-access-token']
-
+    console.log(token)
     if (!token) {
-        return res.status(404).send({
-            authenticationError: 'failed. Token error',
+        return res.status(403).send({
+            authenticationError: 'Failed. Token missing',
             message: 'No Autorizado para acceder al recurso'
         })
     }
     // Verificar Token
-    jwt.verify(token, 'SECRET KEY', (error: any, decoded: any) => {
+    jwt.verify(token, sercretKey, (error: any, decoded: any) => {
         // En caso de error
         if (error) {
             return res.status(500).send({
@@ -28,7 +32,7 @@ export const verifyToken = (req: Request, res: Response, next: NextFunction) => 
             })
         }
         // Si JWT Token es valido 
-        // PErmite accede las rutas protegidas o endpoint solicitado
+        // PErmite accede las rutas protegidas o endpoint solicitado (Ejecuta el segundo parametro de get() de rutas de Auth)
         next()
     })
 }

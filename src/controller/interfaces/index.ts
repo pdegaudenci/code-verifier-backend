@@ -14,8 +14,6 @@ export interface IUsersController {
     geUsers(id?: string): Promise<any>
     // Borra usuario por ID
     deleteUser(id?: string): Promise<any>
-    // Crear nuevo usuario
-    createUser(user: any): Promise<any>
     // Actualizar usuario
     updateUser(id: string, user: any): Promise<any>
 
@@ -51,5 +49,7 @@ export interface IAuthController {
     loginUser(auth: any): Promise<any>
     // logout
     logOutUser(): Promise<any>
+    // Informacion de usuario
+    userData(id: string): Promise<any>
 
 }
