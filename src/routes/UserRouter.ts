@@ -14,8 +14,12 @@ const userRouter = express.Router() // Acceder al sistema de enrutado
 // http://localhost:8000/api/users
 userRouter.route('/')
     .get(verifyToken, async (req: Request, res: Response) => {
-        // Obtener query Param (consultas que son recibidas por parametro en la URL)
-        const id: any = req?.query?.id
+        // Obtener query Param (consultas que son recibidas por parametro en la URL) --> id, pagina y limite de paginas a mostrar
+        let id: any = req?.query?.id;
+        let page: any = req?.query?.page || 1;
+        let limit: any = req?.query?.limit || 10;
+
+
         LogInfo(`Query Param : ${id}`)
 
         // Instancia de controlador
@@ -23,7 +27,7 @@ userRouter.route('/')
 
         // Obtener respuesta
         // controller.getMessage().then
-        const response = await controller.geUsers(id)
+        const response = await controller.geUsers(page, limit, id)
 
         // Enviar respuesta
 

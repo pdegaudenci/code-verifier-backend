@@ -14,15 +14,15 @@ export class UserController implements IUsersController {
      * @returns Todos los uuarios o usuario que corresponde con id del parametro
      */
     @Get('/')
-    public async geUsers(@Query() id?: string): Promise<any> {
+    public async geUsers(@Query() page: number, @Query() limit: number, @Query() id?: string): Promise<any> {
         let response: any = ''
         if (id) {
             LogSucess('[api/users] Get user By id')
             response = await getUserById(id)
-            response.password = ''
+            // response.password = ''
         } else {
             LogSucess('[api/users] Get all Users Request')
-            response = await getAllUsers();
+            response = await getAllUsers(page, limit);
             /*
             response = response.map((x: any) => {
                 x = {

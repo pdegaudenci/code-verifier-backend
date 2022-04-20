@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "34fd7508-634c-47e3-8726-74a31cc83537",
+		"_postman_id": "57a3ca60-f2a0-47b8-b138-55aec5c64af7",
 		"name": "NODE JS + EXPRESS +MONGOOSE KATAS",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -8,8 +8,17 @@
 		{
 			"name": "GET ALL KATAS",
 			"request": {
+				"auth": {
+					"type": "noauth"
+				},
 				"method": "GET",
-				"header": [],
+				"header": [
+					{
+						"key": "x-access-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1hcnRpbkBnbWFpbC5jb20iLCJpYXQiOjE2NTA0NTIyNjgsImV4cCI6MTY1MDQ1OTQ2OH0.mwndfCsWzgsnwq14ziQsdZR6oy5qjwXsd8i1_BgJnUA",
+						"type": "text"
+					}
+				],
 				"url": {
 					"raw": "http://localhost:8000/api/katas",
 					"protocol": "http",
@@ -91,7 +100,10 @@
 			"name": "DELETE KATA BY ID",
 			"request": {
 				"method": "GET",
-				"header": []
+				"header": [],
+				"url": {
+					"raw": ""
+				}
 			},
 			"response": []
 		},
@@ -231,6 +243,36 @@
 						"api",
 						"katas",
 						"score"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login de usuario Copy",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"martin@gmail.com\",\r\n    \"password\":\"password\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/api/auth/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"auth",
+						"login"
 					]
 				}
 			},

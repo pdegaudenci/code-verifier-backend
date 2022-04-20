@@ -9,6 +9,7 @@ import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 // USo de variables de entorno
 import dotenv from 'dotenv'
+import { UserResponse } from '../types/UserResponse.type'
 
 // Acceso a .env
 dotenv.config()
@@ -20,11 +21,51 @@ let secretKey = process.env.SECRET_KEY || 'MY SECRET KEY';
 /**
  * Obtiene todos los usuarios de la colleccion
  */
-export const getAllUsers = async (): Promise<any[] | undefined> => {
+export const getAllUsers = async (page: number, limit: number): Promise<any[] | undefined> => {
     try {
         const userModel = userEntity()
+
+        let response: any = {}
+        // Buscar todos los usuarios (usando la paginacion)
+        await userModel.find({ isDelete: false })
+            .select('name email age') // proyeccion
+            .limit(limit)
+            .skip((page - 1) * limit)
+            .exec().then((users: IUser[]) => {
+                // Limpiar contraseña de resultado
+
+                /*
+                users.forEach((user: IUser) => {
+                    user.password = ''
+                })*/
+                response.users = users
+
+            })
+
+
+
+        // Contar cantidad total de documentos de coleccion "Users"
+        await userModel.count().then((total: number) => {
+            response.totalPages = Math.ceil(total / limit) // numero de paginas en funcion del limite
+            response.currentPage = page
+
+        })
+
+        return response;
+
+        /**
+         * JSON DE RESPUESTA
+         * users ={
+         *  [
+         *    {}
+         *  ],
+         *  totalPage:2 ,
+         *  currentPAge:2
+         * }
+         */
+
         LogSucess('[API/USERS] Get All Users')
-        return await userModel.find({ isDelete: false }) // busca aquellos que no estan borrados
+        // return await userModel.find({ isDelete: false }) // busca aquellos que no estan borrados
     } catch (error) {
         LogError(`[ORM ERROR]: GET All User: ${error}`)
     }
@@ -33,13 +74,13 @@ export const getAllUsers = async (): Promise<any[] | undefined> => {
 export const getUserById = async (id: String): Promise<any | undefined> => {
     try {
         const userModel = userEntity()
-        return await userModel.findById(id)
+        return await userModel.findById(id).select('name age email')
     } catch (error) {
         LogError(`[ORM ERROR]: GET USER BY id: ${error}`)
     }
 }
 
-// TODO
+
 
 // Delete User by Id
 export const deleteUserById = async (id: String): Promise<any | undefined> => {

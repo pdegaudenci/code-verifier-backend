@@ -11,7 +11,7 @@ export interface IGoodbyController {
 
 export interface IUsersController {
     // Obtiene todos los usuarios || obtiene usuario por ID
-    geUsers(id?: string): Promise<any>
+    geUsers(page: number, limit: number, id?: string): Promise<any>
     // Borra usuario por ID
     deleteUser(id?: string): Promise<any>
     // Actualizar usuario
