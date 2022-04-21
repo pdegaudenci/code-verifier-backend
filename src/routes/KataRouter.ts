@@ -14,7 +14,9 @@ const kataRouter = express.Router() // Acceder al sistema de enrutado
 kataRouter.route('/')
     .get(verifyToken, async (req: Request, res: Response) => {
         // Obtener query Param (consultas que son recibidas por parametro en la URL)
-        const id: any = req?.query?.id
+        let id: any = req?.query?.id;
+        let page: any = req?.query?.page || 1;
+        let limit: any = req?.query?.limit || 10;
         LogInfo(`Query Param : ${id}`)
 
         // Instancia de controlador
@@ -22,7 +24,7 @@ kataRouter.route('/')
 
         // Obtener respuesta
         // controller.getMessage().then
-        const response = await controller.getKatas(id)
+        const response = await controller.getKatas(page, limit, id)
 
         // Enviar respuesta
 

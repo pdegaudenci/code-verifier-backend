@@ -24,14 +24,14 @@ export class KatasController implements IKatasInterface {
     }
 
     @Get('/')
-    public async getKatas(id?: string): Promise<any> {
+    public async getKatas(page: number, limit: number, id?: string): Promise<any> {
         let response: any = ''
         if (id) {
             LogSucess('[api/katas] Get kata By id')
             response = await getKataById(id)
         } else {
             LogSucess('[api/katas] Get all Katas Request')
-            response = await getAllKatas()
+            response = await getAllKatas(page, limit)
         }
 
         return response

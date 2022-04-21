@@ -1,28 +1,47 @@
 /* eslint-disable indent */
 import { LogSucess, LogError } from '../../utils/logger'
 import { kataEntity } from '../entities/Kata.Entity'
+import { IKata } from '../IKata.interface'
 
-export const getAllKatas = async (): Promise<any[] | undefined> => {
+export const getAllKatas = async (page: number, limit: number): Promise<any[] | undefined> => {
     try {
-        LogSucess('[API/USERS] Get All Katas')
         const kataModel = kataEntity()
-        return await kataModel.find({ isDelete: false })
+
+        let response: any = {}
+
+        await kataModel.find({ isDelete: false })
+            .select('User name Descripction Chances Level Average') // proyeccion
+            .limit(limit)
+            .skip((page - 1) * limit)
+            .exec().then((katas: IKata[]) => {
+
+                response.katas = katas
+
+            })
+
+
+        await kataModel.count().then((total: number) => {
+            response.totalPages = Math.ceil(total / limit) // numero de paginas en funcion del limite
+            response.currentPage = page
+
+        })
+        LogSucess('[API/KATAS] Get All Katas with pagination')
+        return response;
+
     } catch (error) {
-        LogError(`[ORM ERROR]: Getting all Katas: ${error}`)
+        LogError(`[ORM ERROR]: GET All Katas: ${error}`)
     }
 }
 
-// GetKataById
+// GetUSerById
 export const getKataById = async (id: String): Promise<any | undefined> => {
     try {
         const kataModel = kataEntity()
-        return await kataModel.findById(id)
+        return await kataModel.findById(id).select('User name Descripction Chances Level Average')
     } catch (error) {
-        LogError(`[ORM ERROR]: Getting kata by id: ${error}`)
+        LogError(`[ORM ERROR]: GET KATA BY id: ${error}`)
     }
 }
-
-// TODO
 
 // Delete Kata by Id
 export const deleteKataById = async (id: String): Promise<any | undefined> => {

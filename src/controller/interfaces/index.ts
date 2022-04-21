@@ -21,7 +21,7 @@ export interface IUsersController {
 
 export interface IKatasInterface {
     // Obtiene todos las katas || obtiene kata por ID
-    getKatas(id?: string): Promise<any>
+    getKatas(page: number, limit: number, id?: string): Promise<any>
     // Borra kata por ID
     deleteKata(id?: string): Promise<any>
     // Crear nuevo kata

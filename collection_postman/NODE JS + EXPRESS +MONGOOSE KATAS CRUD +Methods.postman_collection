@@ -14,13 +14,13 @@
 				"method": "GET",
 				"header": [
 					{
-						"key": "x-access-token",
-						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1hcnRpbkBnbWFpbC5jb20iLCJpYXQiOjE2NTA0NTIyNjgsImV4cCI6MTY1MDQ1OTQ2OH0.mwndfCsWzgsnwq14ziQsdZR6oy5qjwXsd8i1_BgJnUA",
+						"key": "xs-access-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1hcnRpbkBnbWFpbC5jb20iLCJpYXQiOjE2NTA1MzMzMTAsImV4cCI6MTY1MDU0MDUxMH0.It9TteO8WK_wi42MWzXtXEnZ7lGGAai217sAQgXKU7Y",
 						"type": "text"
 					}
 				],
 				"url": {
-					"raw": "http://localhost:8000/api/katas",
+					"raw": "http://localhost:8000/api/katas?page=1&limit=2",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -29,6 +29,16 @@
 					"path": [
 						"api",
 						"katas"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "1"
+						},
+						{
+							"key": "limit",
+							"value": "2"
+						}
 					]
 				}
 			},
