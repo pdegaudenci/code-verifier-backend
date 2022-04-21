@@ -11,11 +11,7 @@ export interface IKata {
     Date: Number,
     Description: String,
     Level: KataLevel,
-    User: {
-        name: String,
-        email: String,
-        age: Number
-    },
+    User: String,
     Valorations: Number,
     Average: Number,
     ValorationQuantity: Number,
