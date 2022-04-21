@@ -52,27 +52,23 @@ kataRouter.route('/')
     })
     // Crear usuario
     .post(jsonParser, verifyToken, async (req: Request, res: Response) => {
-        let response: any = ''
+          let response: any = ''
 
         const name: string = req?.body?.name;
         const description: string = req?.body?.description || '';
         const level: KataLevel = req?.body?.level || KataLevel.BASIC;
-        const chances: number = req?.body?.level;
-        let valorations = req?.body?.valorations || 0;
-        let user: IUser = req?.body?.user;
+        const chances: number = req?.body?.chances || 0;
+        let valorations: number = req?.body?.valorations || 0;
+        let user: string = req?.body?.user;
         let solution: string = req?.body?.solution || '';
         let participants: string[] = req?.body?.participanst || [];
-        if (name && description && level && chances && valorations && user && solution && participants) {
+        if (name &&user ) {
             const kata: IKata = {
                 name: name,
                 Description: description,
                 Level: level,
-                User: {
-                    name: user.name,
-                    email: user.email,
-                    age: user.age
-                },
-                Date: Date.now(),
+                User:user,
+                Date: new Date(),
                 Chances: chances,
                 Valorations: valorations,
                 Average: 0,
