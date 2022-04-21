@@ -1,13 +1,14 @@
 /* eslint-disable indent */
 import mongoose from 'mongoose'
+import { IKata } from '../IKata.interface'
 
 export const kataEntity = () => {
-    const userSchema = new mongoose.Schema({
-        name: String,
-        Chances: Number,
-        Date: Date,
-        Description: String,
-        Level: Number,
+    const userSchema = new mongoose.Schema<IKata>({
+        name: { type: String, required: true },
+        Chances: { type: Number, required: true },
+        Date: { type: Date, required: true },
+        Description: { type: String, required: true },
+        Level: { type: String, required: true },
         User: {
             name: String,
             email: String,
@@ -15,7 +16,9 @@ export const kataEntity = () => {
         },
         Valorations: Number,
         Average: Number,
-        ValorationQuantity: Number
+        ValorationQuantity: Number,
+        solution: { type: String, required: true },
+        participants: { type: [], required: true }
 
     })
 

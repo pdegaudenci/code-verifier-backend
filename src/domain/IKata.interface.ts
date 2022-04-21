@@ -1,9 +1,16 @@
+export enum KataLevel {
+    BASIC = "BASIC",
+    MEDIUM = "MEDIUM",
+    HIGHT = "HIGHT"
+
+}
+
 export interface IKata {
     name: String,
     Chances: Number,
-    Date: Date,
+    Date: Number,
     Description: String,
-    Level: Number,
+    Level: KataLevel,
     User: {
         name: String,
         email: String,
@@ -11,5 +18,7 @@ export interface IKata {
     },
     Valorations: Number,
     Average: Number,
-    ValorationQuantity: Number
+    ValorationQuantity: Number,
+    solution: string,
+    participants: string[]
 }

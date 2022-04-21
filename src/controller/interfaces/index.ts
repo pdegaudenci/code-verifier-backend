@@ -1,5 +1,6 @@
 import { BasicResponse, OutputResponse } from '../types'
 import { IUser } from '../../domain/IUser.interface'
+import { IKata } from '../../domain/IKata.interface'
 
 export interface IHelloController {
     getMessage(name?: string): Promise<BasicResponse>
@@ -25,9 +26,9 @@ export interface IKatasInterface {
     // Borra kata por ID
     deleteKata(id?: string): Promise<any>
     // Crear nuevo kata
-    createKata(kata: any): Promise<any>
+    createKata(kata: IKata): Promise<any>
     // Actualizar kata
-    updateKata(id: string, kata: any): Promise<any>
+    updateKata(id: string, kata: IKata): Promise<any>
     // obtoner katas por nivel de dificultad
     getKataByLevel(level: Number): Promise<any>
     // obtener las 5 Katas más recientes

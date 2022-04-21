@@ -92,16 +92,6 @@ export const deleteUserById = async (id: String): Promise<any | undefined> => {
         LogError('[ORM error] Deleting user by id')
     }
 }
-// Crear Usuario
-export const createUser = async (user: any): Promise<any | undefined> => {
-    try {
-        const userModel = userEntity()
-        // Crea usuario
-        return await userModel.create(user)
-    } catch (error) {
-        LogError('[ORM error] creating user')
-    }
-}
 
 // Actualizar usuario por ID
 export const updateUser = async (id: string, user: any): Promise<any | undefined> => {

@@ -2,6 +2,11 @@
 import { LogSucess, LogError } from '../../utils/logger'
 import { kataEntity } from '../entities/Kata.Entity'
 import { IKata } from '../IKata.interface'
+// Acceso a variables de entorno
+import dotenv from 'dotenv'
+
+// Lectura de variables de entorno
+dotenv.config()
 
 export const getAllKatas = async (page: number, limit: number): Promise<any[] | undefined> => {
     try {
@@ -10,7 +15,7 @@ export const getAllKatas = async (page: number, limit: number): Promise<any[] | 
         let response: any = {}
 
         await kataModel.find({ isDelete: false })
-            .select('User name Descripction Chances Level Average') // proyeccion
+            .select('User name Descripction Chances Level Average solution participants') // proyeccion
             .limit(limit)
             .skip((page - 1) * limit)
             .exec().then((katas: IKata[]) => {
@@ -53,7 +58,7 @@ export const deleteKataById = async (id: String): Promise<any | undefined> => {
     }
 }
 // Create Kata
-export const createKata = async (kata: any): Promise<any | undefined> => {
+export const createKata = async (kata: IKata): Promise<any | undefined> => {
     try {
         const kataModel = kataEntity()
         return await kataModel.create(kata)
@@ -63,7 +68,7 @@ export const createKata = async (kata: any): Promise<any | undefined> => {
 }
 
 // Actualizar kata por ID
-export const updateKata = async (id: string, kata: any): Promise<any | undefined> => {
+export const updateKata = async (id: string, kata: IKata): Promise<any | undefined> => {
     try {
         const kataModel = kataEntity()
         return await kataModel.findByIdAndUpdate(id, kata)
@@ -71,6 +76,8 @@ export const updateKata = async (id: string, kata: any): Promise<any | undefined
         LogError(`[ORM ERROR]: Updating kata: ${error}`)
     }
 }
+
+
 // Obttener Katas de un nivel determinado
 export const getKataByLevel = async (level: any): Promise<any | undefined> => {
     try {

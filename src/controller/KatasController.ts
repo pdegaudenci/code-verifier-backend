@@ -15,13 +15,12 @@ import {
 } from '../../src/domain/orm/Kata.orm'
 import { LogSucess, LogError, LogWarning } from '../utils/logger'
 import { Get, Route, Tags, Query, Delete, Post, Put } from 'tsoa'
+import { IKata } from '.././domain/IKata.interface'
 
 @Route('api/katas')
 @Tags('KatasController')
 export class KatasController implements IKatasInterface {
-    getKatasOrderedByScore(): Promise<any> {
-        throw new Error('Method not implemented.')
-    }
+
 
     @Get('/')
     public async getKatas(page: number, limit: number, id?: string): Promise<any> {
@@ -56,21 +55,30 @@ export class KatasController implements IKatasInterface {
     }
 
     @Post('/')
-    public async createKata(kata: any): Promise<any> {
+    public async createKata(kata: IKata): Promise<any> {
         let response: any = kata
-        LogSucess('[api/users] Creating kata')
+        LogSucess('[api/katas] Create new Kata ')
+        if (kata) {
+            await createKata(kata).then((r) => {
+                LogSucess(`[api/katas] Create new Kata kata:${kata.name} `)
+                response = {
+                    message: `Kata with name ${kata.name} was created successfully`
+                }
+            })
 
-        await createKata(kata).then((r) => {
+        }
+        else {
+            LogWarning('[api/katas] Needs to provide a valid Kata Entity')
             response = {
-                message: `Kata with name ${kata.name} was created successfully`
+                message: 'Debe proporcionar un kata valido'
             }
-        })
+        }
 
         return response
     }
 
     @Put('/')
-    public async updateKata(id: string, kata: any): Promise<any> {
+    public async updateKata(id: string, kata: IKata): Promise<any> {
         let response: any = ''
         if (id) {
             LogSucess('[api/katas] Update Kata By id')
@@ -126,7 +134,7 @@ export class KatasController implements IKatasInterface {
         return response
     }
 
-    public async getKataOrderedByScore(): Promise<any> {
+    public async getKatasOrderedByScore(): Promise<any> {
 
 
         LogSucess('[api/katas/level] Obtains Katas ordered by score')
