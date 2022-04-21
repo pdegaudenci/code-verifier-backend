@@ -8,7 +8,7 @@ export enum KataLevel {
 export interface IKata {
     name: String,
     Chances: Number,
-    Date: Number,
+    Date: Date,
     Description: String,
     Level: KataLevel,
     User: String,
