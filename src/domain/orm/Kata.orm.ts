@@ -60,6 +60,7 @@ export const deleteKataById = async (id: String): Promise<any | undefined> => {
 // Create Kata
 export const createKata = async (kata: IKata): Promise<any | undefined> => {
     try {
+        console.log(kata)
         const kataModel = kataEntity()
         return await kataModel.create(kata)
     } catch (error) {

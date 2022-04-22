@@ -5,6 +5,7 @@ import { LogInfo } from '../utils/logger'
 
 // Middleware de verificacion de token
 import { verifyToken } from '../middleware/verifyToken.middleware'
+import { IUser } from '@/domain/IUser.interface'
 
 
 // Router de Express
@@ -57,24 +58,45 @@ userRouter.route('/')
         const name: any = req?.query?.name
         const email: any = req?.query?.email
         const age: any = req?.query?.age
+        const katas = req?.query?.katas
 
         // info
         LogInfo(`Query Params: id: ${id} , nombre: ${name}, email: ${email}, edad: ${age}`)
         const user = {
             name: name,
             email: email,
-            age: age
+            age: age,
+            katas: katas
         }
         // Instancia de controlador
         const controller: UserController = new UserController()
 
         // Obtener respuesta
-
         const response = await controller.updateUser(id, user)
 
         // Enviar respuesta
+        return res.status(response.status).send(response);
 
-        return res.status(response.status).send(response)
+    });
+
+// http://localhost:8000/api/users/katas
+userRouter.route('/katas')
+    .get(verifyToken, async (req: Request, res: Response) => {
+
+        let id: any = req?.query?.id;
+        let page: any = req?.query?.page || 1;
+        let limit: any = req?.query?.limit || 10;
+
+        // Instancia de controlador
+        const controller: UserController = new UserController()
+
+        // Obtener respuesta
+        // controller.getMessage().then
+        const response = await controller.getKatas(page, limit, id)
+
+        // Enviar respuesta
+
+        return res.status(200).send(response)
     })
 
 

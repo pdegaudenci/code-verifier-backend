@@ -9,11 +9,7 @@ export const kataEntity = () => {
         Date: { type: Date, required: true },
         Description: { type: String, required: true },
         Level: { type: String, required: true },
-        User: {
-            name: String,
-            email: String,
-            age: Number
-        },
+        User: String,
         Valorations: Number,
         Average: Number,
         ValorationQuantity: Number,
@@ -22,5 +18,5 @@ export const kataEntity = () => {
 
     })
 
-    return mongoose.models.katas || mongoose.model('katas', userSchema)
+    return mongoose.models.katas || mongoose.model<IKata>('katas', userSchema)
 }

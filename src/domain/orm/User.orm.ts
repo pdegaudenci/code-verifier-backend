@@ -3,6 +3,7 @@ import { userEntity } from '../entities/User.entity'
 import { IUser } from '../IUser.interface'
 import { LogSucess, LogError } from '../../utils/logger'
 import { IAuth } from '../IAuth.interface'
+import mongoose from 'mongoose'
 // Cifrado de contraseñas
 import bcrypt from 'bcrypt'
 // Generacion de JWToken
@@ -10,6 +11,8 @@ import jwt from 'jsonwebtoken'
 // USo de variables de entorno
 import dotenv from 'dotenv'
 import { UserResponse } from '../types/UserResponse.type'
+import { kataEntity } from '../entities/Kata.Entity'
+import { IKata } from '../IKata.interface'
 
 // Acceso a .env
 dotenv.config()
@@ -17,6 +20,53 @@ dotenv.config()
 // Obtener secret key
 let secretKey = process.env.SECRET_KEY || 'MY SECRET KEY';
 // Preticiones CRUD
+
+export const getKatasFromUser = async (id: string, page: number, limit: number): Promise<any[] | undefined> => {
+    try {
+        let userModel = userEntity()
+        let kataModel = kataEntity()
+
+        let response: any = {}
+        // Buscar todos los usuarios (usando la paginacion)
+        await userModel.findById(id).then((user) => {
+
+            // Si encuentra usuario
+            response.user = user.email
+            // Crear tipo para busqueda
+            let objectIds: mongoose.Types.ObjectId[] = []
+            user.katas.forEach((kataId: string) => {
+                objectIds.push(new mongoose.Types.ObjectId(kataId))
+            });
+
+
+            // busca katas cuyo id se encuentre dentro del la lista de katas del usuario (objectIds= user.katas)
+            kataModel.find({ "_id": { "$in": objectIds } }).then((katas: IKata[]) => {
+                // busqueda devuelve lista de katas
+
+                response.katasFound = katas
+
+
+
+            })
+        }).catch((error) => {
+            LogError(`[ORM ERROR] Obteniendo usuario: ${error}`)
+        })
+
+        // Contar cantidad total de documentos de coleccion "Users"
+        await userModel.count().then((total: number) => {
+            response.totalPages = Math.ceil(total / limit) // numero de paginas en funcion del limite
+            response.currentPage = page
+
+        })
+
+        return response;
+
+        // return await userModel.find({ isDelete: false }) // busca aquellos que no estan borrados
+    } catch (error) {
+        LogError(`[ORM ERROR]: GET All User: ${error}`)
+    }
+}
+
 
 /**
  * Obtiene todos los usuarios de la colleccion
@@ -28,7 +78,7 @@ export const getAllUsers = async (page: number, limit: number): Promise<any[] | 
         let response: any = {}
         // Buscar todos los usuarios (usando la paginacion)
         await userModel.find({ isDelete: false })
-            .select('name email age') // proyeccion
+            .select('name email age katas') // proyeccion
             .limit(limit)
             .skip((page - 1) * limit)
             .exec().then((users: IUser[]) => {
@@ -74,7 +124,7 @@ export const getAllUsers = async (page: number, limit: number): Promise<any[] | 
 export const getUserById = async (id: String): Promise<any | undefined> => {
     try {
         const userModel = userEntity()
-        return await userModel.findById(id).select('name age email')
+        return await userModel.findById(id).select('name age email katas')
     } catch (error) {
         LogError(`[ORM ERROR]: GET USER BY id: ${error}`)
     }

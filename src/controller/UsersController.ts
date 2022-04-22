@@ -2,12 +2,34 @@
 import { Get, Route, Tags, Query, Delete, Post, Put } from 'tsoa'
 import { IUsersController } from './interfaces/index'
 import { LogSucess, LogError, LogWarning } from '../../src/utils/logger'
-import { getAllUsers, getUserById, deleteUserById, createUser, updateUser } from '../domain/orm/User.orm'
+import { getAllUsers, getUserById, deleteUserById, updateUser, getKatasFromUser } from '../domain/orm/User.orm'
 import { BasicResponse } from './types'
 
 @Route('api/users')
 @Tags('UserController')
 export class UserController implements IUsersController {
+    @Get("/katas")
+    public async getKatas(@Query() page: number, @Query() limit: number, @Query() id?: string): Promise<any> {
+        let response: any = ''
+        if (id) {
+            LogSucess('[api/users/kata] Get kata By user id')
+            response = await getKatasFromUser(id, page, limit)
+
+        } else {
+            LogSucess('[api/users] Get Katas sin id de usuario')
+            response = {
+                message: `debe proporcionar ID de usuario`
+            }
+        }
+
+        return response
+
+
+
+
+
+
+    }
     /**
      *
      * @param id {string} id del usuario a obtener (opcional)

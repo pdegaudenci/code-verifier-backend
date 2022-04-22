@@ -17,6 +17,8 @@ export interface IUsersController {
     deleteUser(id?: string): Promise<any>
     // Actualizar usuario
     updateUser(id: string, user: any): Promise<any>
+    // Obtener katas de un usuario
+    getKatas(page: number, limit: number, id?: string): Promise<any>
 
 }
 
@@ -39,6 +41,8 @@ export interface IKatasInterface {
     getKataOrderedByChances(): Promise<any>
     //Katas ordenados por valoraciones (medias)
     getKatasOrderedByScore(): Promise<any>
+    // Obtener katas de un usuario
+
 
 
 }

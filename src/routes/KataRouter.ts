@@ -52,7 +52,7 @@ kataRouter.route('/')
     })
     // Crear usuario
     .post(jsonParser, verifyToken, async (req: Request, res: Response) => {
-          let response: any = ''
+        let response: any = ''
 
         const name: string = req?.body?.name;
         const description: string = req?.body?.description || '';
@@ -62,12 +62,12 @@ kataRouter.route('/')
         let user: string = req?.body?.user;
         let solution: string = req?.body?.solution || '';
         let participants: string[] = req?.body?.participanst || [];
-        if (name &&user ) {
+        if (name && user && valorations >= 0 && chances >= 0) {
             const kata: IKata = {
                 name: name,
                 Description: description,
                 Level: level,
-                User:user,
+                User: user,
                 Date: new Date(),
                 Chances: chances,
                 Valorations: valorations,
@@ -95,17 +95,18 @@ kataRouter.route('/')
     )
     // Actualizar usuario por ID
     .put(jsonParser, verifyToken, async (req: Request, res: Response) => {
-       let response: any = ''
+        let response: any = ''
         let id: any = req?.query?.id
+        console.log(id)
         const name: string = req?.body?.name;
         const description: string = req?.body?.description || '';
         const level: KataLevel = req?.body?.level || KataLevel.BASIC;
-        const chances: number = req?.body?.level;
+        const chances: number = req?.body?.chances;
         let valorations = req?.body?.valorations || 0;
         let user: string = req?.body?.user;
         let solution: string = req?.body?.solution || '';
         let participants: string[] = req?.body?.participanst || [];
-        if (id && name && description && level && chances && valorations && user && solution && participants) {
+        if (id) {
             const kata: IKata = {
                 name: name,
                 Description: description,

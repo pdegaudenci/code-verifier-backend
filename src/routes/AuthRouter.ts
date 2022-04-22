@@ -29,7 +29,8 @@ authRouter.route('/register')
                 name: name,
                 email: email,
                 password: passwordHashed,
-                age: age
+                age: age,
+                katas: []
 
             }
 

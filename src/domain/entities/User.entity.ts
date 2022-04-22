@@ -9,9 +9,10 @@ export const userEntity = () => {
         name: { type: String, required: true },
         email: { type: String, required: true },
         password: { type: String, required: true },
-        age: { type: Number, required: true }
+        age: { type: Number, required: true },
+        katas: { type: [], required: true }
     })
 
     // retorna modelo asignado a la collecion users que cumplen el esquema si es la primera vez que se ejecuta o retorno el modelo existente
-    return mongoose.models.users || mongoose.model('users', userSchema)
+    return mongoose.models.users || mongoose.model<IUser>('users', userSchema)
 }
