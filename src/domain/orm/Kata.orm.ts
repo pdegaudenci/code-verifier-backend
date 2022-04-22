@@ -4,6 +4,8 @@ import { kataEntity } from '../entities/Kata.Entity'
 import { IKata } from '../IKata.interface'
 // Acceso a variables de entorno
 import dotenv from 'dotenv'
+import { userEntity } from '../entities/User.entity'
+import { IUser } from '../IUser.interface'
 
 // Lectura de variables de entorno
 dotenv.config()
@@ -40,39 +42,86 @@ export const getAllKatas = async (page: number, limit: number): Promise<any[] | 
 
 // GetUSerById
 export const getKataById = async (id: String): Promise<any | undefined> => {
+
     try {
         const kataModel = kataEntity()
         return await kataModel.findById(id).select('User name Descripction Chances Level Average')
     } catch (error) {
         LogError(`[ORM ERROR]: GET KATA BY id: ${error}`)
     }
+
 }
 
 // Delete Kata by Id
-export const deleteKataById = async (id: String): Promise<any | undefined> => {
+export const deleteKataById = async (id: String, editor: string): Promise<any | undefined> => {
     try {
+        let response;
         const kataModel = kataEntity()
-        return await kataModel.deleteOne({ _id: id })
+
+        response = await kataModel.findById(id)
+        if (response.User === editor) {
+            await kataModel.deleteOne({ _id: id })
+            return response = {
+                message: `kata with id ${id} was deleted succesfully`
+            }
+        }
+        else {
+            return response = {
+                message: 'Solo el usuario que creo el kata puede borrarlo'
+            }
+        }
+
     } catch (error) {
         LogError(`[ORM ERROR]: Deleting kata by id: ${error}`)
     }
 }
 // Create Kata
 export const createKata = async (kata: IKata): Promise<any | undefined> => {
+    let response;
     try {
-        console.log(kata)
         const kataModel = kataEntity()
-        return await kataModel.create(kata)
+        // Buscar si existe el id de usuario
+
+        let userModel = userEntity();
+        await userModel.findOne({ _id: kata.User }).then((user: IUser) => {
+
+            response = kataModel.create(kata)
+        }).catch((error) => {
+
+
+            response = {
+                message: `No existe usuario con id ${kata.User}`
+            }
+            throw new Error(`[ERROR Creating Kata in ORM]: User not found: ${error}`);
+
+        })
+
     } catch (error) {
+
         LogError(`[ORM ERROR]: Creating kata : ${error}`)
     }
+    return response;
 }
 
 // Actualizar kata por ID
-export const updateKata = async (id: string, kata: IKata): Promise<any | undefined> => {
+export const updateKata = async (id: string, kata: IKata, editor: string): Promise<any | undefined> => {
+    let response;
     try {
         const kataModel = kataEntity()
-        return await kataModel.findByIdAndUpdate(id, kata)
+
+        response = await kataModel.findById(id)
+        if (response.User === editor) {
+            await kataModel.updateOne(kata)
+            return response = {
+                message: `kata with id ${id} was updated succesfully`
+            }
+        }
+        else {
+            return response = {
+                message: 'Solo el usuario que creo el kata puede editarlo'
+            }
+        }
+
     } catch (error) {
         LogError(`[ORM ERROR]: Updating kata: ${error}`)
     }
@@ -81,12 +130,24 @@ export const updateKata = async (id: string, kata: IKata): Promise<any | undefin
 
 // Obttener Katas de un nivel determinado
 export const getKataByLevel = async (level: any): Promise<any | undefined> => {
+    let response;
     try {
+
         const kataModel = kataEntity()
-        return await kataModel.find({ Level: level })
-    } catch (error) {
+        response = await kataModel.find({ Level: level })
+        if (response.length === 0) {
+            response = {
+                ...response,
+                message: `No existen katas del nivel : ${level}`
+            }
+        }
+
+    }
+    catch (error) {
         LogError(`[ORM error] Obtaining kata by level: ${error}`)
     }
+    console.log(response)
+    return response
 }
 
 // Obtener los 5 katas mas recientes
@@ -129,4 +190,22 @@ export const getOrderedByScore = async (): Promise<any> => {
     } catch (error) {
         LogError(`[ORM error] Obtaining kata ordered by score : ${error}`)
     }
+}
+
+export const resolveKata = async (id: string) => {
+    let response
+    try {
+
+        const kataModel = kataEntity()
+        response = await kataModel.findById(id)
+
+    } catch (error) {
+        LogError(`[ORM ERROR]: No existe el kata: ${error}`)
+        return response = {
+            message: 'No existe el kata'
+        }
+
+    }
+    console.log(response)
+    return response.solution;
 }

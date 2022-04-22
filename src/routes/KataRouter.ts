@@ -38,13 +38,15 @@ kataRouter.route('/')
     // DELETE:
     .delete(verifyToken, async (req: Request, res: Response) => {
         const id: any = req?.query?.id
+        const editor: any = req?.query?.editor
         LogInfo(`Query Param : ${id}`)
+
 
         // Instancia de controlador
         const controller: KatasController = new KatasController()
         // Obtener respuesta
 
-        const response = await controller.deleteKata(id)
+        const response = await controller.deleteKata(editor, id)
 
         // Enviar respuesta
 
@@ -106,6 +108,7 @@ kataRouter.route('/')
         let user: string = req?.body?.user;
         let solution: string = req?.body?.solution || '';
         let participants: string[] = req?.body?.participanst || [];
+        let editor: any = req?.query?.editor
         if (id) {
             const kata: IKata = {
                 name: name,
@@ -127,7 +130,7 @@ kataRouter.route('/')
 
             // Obtener respuesta
 
-            response = await controller.updateKata(id, kata)
+            response = await controller.updateKata(id, kata, editor)
             return res.send(response)
         }
         else {
@@ -219,6 +222,21 @@ kataRouter.route('/score')
         // Obtener respuesta
         const response = await controller.scoreKata(id, score)
 
+        // Enviar respuesta
+
+        return res.send(response)
+    })
+
+kataRouter.route('/resolve')
+    // Listar  Katas ordenadas de mejor valoradas a menos valoradas (en funcion de su average o media de puntuaciones)
+    .post(jsonParser, verifyToken, async (req: Request, res: Response) => {
+        let id = req?.body?.id;
+        let solution = req?.body?.solution;
+        // Instancia de controlador
+        const controller: KatasController = new KatasController()
+
+        // Obtener respuesta
+        const response = await controller.getKataResolved(id, solution)
         // Enviar respuesta
 
         return res.send(response)

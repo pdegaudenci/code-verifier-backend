@@ -5,9 +5,10 @@ import { LogInfo } from '../utils/logger'
 
 // Middleware de verificacion de token
 import { verifyToken } from '../middleware/verifyToken.middleware'
-import { IUser } from '@/domain/IUser.interface'
-
-
+import bodyParser from 'body-parser'
+import { IKata, KataLevel } from '../domain/IKata.interface'
+import { KatasController } from '../controller/KatasController'
+const jsonParser = bodyParser.json();
 // Router de Express
 
 const userRouter = express.Router() // Acceder al sistema de enrutado
@@ -98,6 +99,7 @@ userRouter.route('/katas')
 
         return res.status(200).send(response)
     })
+
 
 
 /*

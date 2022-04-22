@@ -38,15 +38,11 @@ export const getKatasFromUser = async (id: string, page: number, limit: number):
                 objectIds.push(new mongoose.Types.ObjectId(kataId))
             });
 
-
             // busca katas cuyo id se encuentre dentro del la lista de katas del usuario (objectIds= user.katas)
             kataModel.find({ "_id": { "$in": objectIds } }).then((katas: IKata[]) => {
                 // busqueda devuelve lista de katas
 
-                response.katasFound = katas
-
-
-
+                response.katasFound = katas;
             })
         }).catch((error) => {
             LogError(`[ORM ERROR] Obteniendo usuario: ${error}`)
@@ -66,6 +62,7 @@ export const getKatasFromUser = async (id: string, page: number, limit: number):
         LogError(`[ORM ERROR]: GET All User: ${error}`)
     }
 }
+
 
 
 /**

@@ -11,7 +11,8 @@ import {
     getMostRecent,
     getOrderedByChances,
     scoreKata,
-    getOrderedByScore
+    getOrderedByScore,
+    resolveKata
 } from '../../src/domain/orm/Kata.orm'
 import { LogSucess, LogError, LogWarning } from '../utils/logger'
 import { Get, Route, Tags, Query, Delete, Post, Put } from 'tsoa'
@@ -37,14 +38,12 @@ export class KatasController implements IKatasInterface {
     }
 
     @Delete('/')
-    public async deleteKata(id?: string): Promise<any> {
+    public async deleteKata(editor: string, id?: string): Promise<any> {
         let response: any = ''
         if (id) {
             LogSucess('[api/katas] Delete kata By id Request')
-            await deleteKataById(id)
-            response = {
-                message: `Kata with id ${id} was deleted succesfully`
-            }
+            response = await deleteKataById(id, editor)
+
         } else {
             LogWarning('[api/katas] Delete kata Request without ID')
             response = {
@@ -59,10 +58,11 @@ export class KatasController implements IKatasInterface {
         let response: any = kata
         LogSucess('[api/katas] Create new Kata ')
         if (kata) {
+
             await createKata(kata).then((r) => {
                 LogSucess(`[api/katas] Create new Kata kata:${kata.name} `)
                 response = {
-                    message: `Kata with name ${kata.name} was created successfully`
+                    message: r
                 }
             })
 
@@ -78,13 +78,15 @@ export class KatasController implements IKatasInterface {
     }
 
     @Put('/')
-    public async updateKata(id: string, kata: IKata): Promise<any> {
+    public async updateKata(id: string, kata: IKata, editor: string): Promise<any> {
         let response: any = ''
         if (id) {
             LogSucess('[api/katas] Update Kata By id')
-            await updateKata(id, kata).then((r) => {
+            await updateKata(id, kata, editor).then((response) => {
+
                 response = {
-                    message: `kata with id ${id} was updated succesfully`
+                    kata: response,
+
                 }
             })
         } else {
@@ -142,4 +144,24 @@ export class KatasController implements IKatasInterface {
 
 
     }
+
+    @Post('/resolve')
+    public async getKataResolved(id: string, resolution: string): Promise<any> {
+        let response: any = {};
+        if (id) {
+            LogSucess('[api/katas] Get solution from kata')
+            response.respuesta = await resolveKata(id)
+
+        } else {
+            LogError('[api/katas/resolve ERROR] Debe proporcionar un id del kata')
+            response = {
+                message: 'Debe proporcionar un id'
+            }
+        }
+
+        response.yourSolution = resolution;
+        console.log(response)
+        return response
+    }
+
 }
