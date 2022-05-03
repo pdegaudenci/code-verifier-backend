@@ -46,6 +46,7 @@ export class AuthController implements IAuthController {
     public async loginUser(auth: IAuth): Promise<any> {
         // Autenticacion de usuario y devolver JW Token generado en metodo loginUser
         let response: AuthResponse | ErrorResponse | undefined;
+        console.log(`Controlador de Autenticacion: ${auth.email} y pass:${auth.password}`)
         if (auth) {
             /*
                         await loginUser(auth).then(r => {
@@ -59,9 +60,12 @@ export class AuthController implements IAuthController {
                         }
                         )*/
             let data = await loginUser(auth)
+
             response = {
+
                 token: data.token,
-                message: `Welcome ${data.user.name}`
+                id: data.user._id,
+                message: `Welcome ${data.user.name} con id ${data.user._id}`
             }
 
         } else {

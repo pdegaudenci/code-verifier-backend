@@ -175,9 +175,9 @@ export const loginUser = async (auth: IAuth): Promise<any | undefined> => {
         // Buscar usuario por email
         await userModel.findOne({ email: auth.email }).then((user: IUser) => {
             userFound = user
+
         }).catch((error) => {
 
-            console.log('[ERROR Autentication in ORM]: User not found');
             throw new Error(`[ERROR Autentication in ORM]: User not found: ${error}`);
 
         })
@@ -190,11 +190,11 @@ export const loginUser = async (auth: IAuth): Promise<any | undefined> => {
             throw new Error(`[ERROR Autentication in ORM]: User not found:`)
         }
 
-        //GENERAR JSON TOKEN
+        //GENERAR JSON WEB TOKEN (Cuya expiracion es de 3 horas)
         token = jwt.sign({ email: userFound!.email }, secretKey, {
-            expiresIn: "2h",
+            expiresIn: "3h",
         })
-
+        // Retorno usuario y token de autenticacion
         return {
             user: userFound,
             token: token

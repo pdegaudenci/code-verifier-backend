@@ -17,7 +17,7 @@ export const getAllKatas = async (page: number, limit: number): Promise<any[] | 
         let response: any = {}
 
         await kataModel.find({ isDelete: false })
-            .select('User name Descripction Chances Level Average solution participants') // proyeccion
+            .select('User name Description Chances Level Average solution participants') // proyeccion
             .limit(limit)
             .skip((page - 1) * limit)
             .exec().then((katas: IKata[]) => {
@@ -45,7 +45,7 @@ export const getKataById = async (id: String): Promise<any | undefined> => {
 
     try {
         const kataModel = kataEntity()
-        return await kataModel.findById(id).select('User name Descripction Chances Level Average')
+        return await kataModel.findById(id).select('User name Description Chances Level Average solution participants')
     } catch (error) {
         LogError(`[ORM ERROR]: GET KATA BY id: ${error}`)
     }

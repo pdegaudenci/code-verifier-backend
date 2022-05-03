@@ -20,7 +20,8 @@ export type ErrorResponse = {
  */
 export type AuthResponse = {
     message: string,
-    token: String
+    token: String,
+    id: String
 }
 
 /**
