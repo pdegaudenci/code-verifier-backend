@@ -42,4 +42,4 @@
 
   ## Variables de entorno en .env:
     * HOST: Establece en que direccion se ejecutara la aplicacion en node (Valor: Localhost)
-    * PORT: Establece desde que puerto del server va a escuchar las peticiones nuestra app en Node (En este caso el puerto 8000)
+    * PORT: Establece desde que puerto del server va a escuchar las peticiones nuestra app en Node (En este caso , puerto 8000)
