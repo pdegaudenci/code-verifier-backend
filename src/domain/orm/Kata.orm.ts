@@ -29,7 +29,7 @@ export const getAllKatas = async (page: number, limit: number): Promise<any[] | 
 
         await kataModel.count().then((total: number) => {
             response.totalPages = Math.ceil(total / limit) // numero de paginas en funcion del limite
-            response.currentPage = page
+            response.currentPage = Math.ceil(page)
 
         })
         LogSucess('[API/KATAS] Get All Katas with pagination')

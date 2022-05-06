@@ -26,33 +26,35 @@ export const getKatasFromUser = async (id: string, page: number, limit: number):
         let userModel = userEntity()
         let kataModel = kataEntity()
 
-        let response: any = {}
+        const response: any = {}
+        let objectIds: mongoose.Types.ObjectId[] = []
         // Buscar todos los usuarios (usando la paginacion)
         await userModel.findById(id).then((user) => {
 
             // Si encuentra usuario
             response.user = user.email
+            response.katas = user.katas
             // Crear tipo para busqueda
-            let objectIds: mongoose.Types.ObjectId[] = []
-            user.katas.forEach((kataId: string) => {
-                objectIds.push(new mongoose.Types.ObjectId(kataId))
-            });
 
-            // busca katas cuyo id se encuentre dentro del la lista de katas del usuario (objectIds= user.katas)
-            kataModel.find({ "_id": { "$in": objectIds } }).then((katas: IKata[]) => {
-                // busqueda devuelve lista de katas
-
-                response.katasFound = katas;
-            })
         }).catch((error) => {
             LogError(`[ORM ERROR] Obteniendo usuario: ${error}`)
         })
+        response.katas.forEach((kataId: string) => {
+            objectIds.push(new mongoose.Types.ObjectId(kataId))
+        });
 
+        // busca katas cuyo id se encuentre dentro del la lista de katas del usuario (objectIds= user.katas)
+        await kataModel.find({ "_id": { "$in": objectIds } }).then((katas: IKata[]) => {
+            // busqueda devuelve lista de katas
+
+            response.katasFound = katas;
+
+        })
         // Contar cantidad total de documentos de coleccion "Users"
         await userModel.count().then((total: number) => {
             response.totalPages = Math.ceil(total / limit) // numero de paginas en funcion del limite
             response.currentPage = page
-
+            console.log(response.katasFound)
         })
 
         return response;

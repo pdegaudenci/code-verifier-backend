@@ -21,7 +21,7 @@ export class UserController implements IUsersController {
                 message: `debe proporcionar ID de usuario`
             }
         }
-
+        console.log(response)
         return response
 
 

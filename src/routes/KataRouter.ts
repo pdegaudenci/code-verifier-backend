@@ -30,7 +30,7 @@ kataRouter.route('/')
         // Obtener respuesta
         // controller.getMessage().then
         const response = await controller.getKatas(page, limit, id)
-
+        console.log(response)
         // Enviar respuesta
 
         return res.status(200).send(response)
@@ -111,6 +111,7 @@ kataRouter.route('/')
         let solution: string = req?.body?.solution || '';
         let participants: string[] = req?.body?.participanst || [];
         let editor: any = req?.query?.editor
+
         if (id) {
             const kata: IKata = {
                 name: name,
