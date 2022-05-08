@@ -43,3 +43,7 @@
   ## Variables de entorno en .env:
     * HOST: Establece en que direccion se ejecutara la aplicacion en node (Valor: Localhost)
     * PORT: Establece desde que puerto del server va a escuchar las peticiones nuestra app en Node (En este caso , puerto 8000)
+
+
+mongod --dbpath C:\Users\pdega\Desktop\Ejercicios\MERN\mongodb-win32-x86_64-windows-5.0.6\data\db
+

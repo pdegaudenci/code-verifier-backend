@@ -30,7 +30,7 @@ export class KatasController implements IKatasInterface {
             LogSucess('[api/katas] Get kata By id')
 
             response = await getKataById(id)
-            console.log(response)
+
         } else {
             LogSucess('[api/katas] Get all Katas Request')
             response = await getAllKatas(page, limit)

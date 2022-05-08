@@ -16,5 +16,5 @@ export interface IKata {
     Average: Number,
     ValorationQuantity: Number,
     solution: string,
-    participants: string[]
+    participants: string[],
 }

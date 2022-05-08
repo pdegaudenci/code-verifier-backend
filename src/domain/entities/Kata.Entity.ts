@@ -14,7 +14,8 @@ export const kataEntity = () => {
         Average: Number,
         ValorationQuantity: Number,
         solution: { type: String, required: true },
-        participants: { type: [], required: true }
+        participants: { type: [], required: true },
+
 
     })
 

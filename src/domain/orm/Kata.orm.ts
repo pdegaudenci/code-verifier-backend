@@ -6,6 +6,7 @@ import { IKata } from '../IKata.interface'
 import dotenv from 'dotenv'
 import { userEntity } from '../entities/User.entity'
 import { IUser } from '../IUser.interface'
+import mongoose from 'mongoose'
 
 // Lectura de variables de entorno
 dotenv.config()
@@ -80,12 +81,31 @@ export const createKata = async (kata: IKata): Promise<any | undefined> => {
     let response;
     try {
         const kataModel = kataEntity()
+
         // Buscar si existe el id de usuario
 
         let userModel = userEntity();
-        await userModel.findOne({ _id: kata.User }).then((user: IUser) => {
+        await userModel.findOne({ _id: kata.User }).then((user) => {
 
-            response = kataModel.create(kata)
+            kataModel.create(kata).then((kataCreado) => {
+
+                let res = new String(kataCreado._id).toString();
+
+                response = userModel.updateOne({ _id: new mongoose.Types.ObjectId(user._id) }, {
+                    $push: {
+                        katas: res
+                    }
+                }).then((res) => {
+                    console.log(res)
+                })
+
+
+
+
+            })
+
+
+
         }).catch((error) => {
 
 
@@ -96,10 +116,13 @@ export const createKata = async (kata: IKata): Promise<any | undefined> => {
 
         })
 
+
+
     } catch (error) {
 
         LogError(`[ORM ERROR]: Creating kata : ${error}`)
     }
+
     return response;
 }
 
